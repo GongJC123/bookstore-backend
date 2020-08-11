@@ -8,9 +8,9 @@ from users.models import UserProfile
 class Category(models.Model):
 
     name = models.CharField("类别名称", default="", max_length=30, help_text="类别名")
-    root = models.BooleanField("是否为根分类", default=True, help_text="是否为根分类")
-    parentId = models.ForeignKey('self', verbose_name="父级分类id", blank=True, null=True, on_delete=models.CASCADE)
-    # related_name = "sub_cat
+    root = models.BooleanField("是否为根分类", default=False, help_text="是否为根分类")
+    parentId = models.ForeignKey('self', verbose_name="父级分类id", blank=True, null=True,
+                                 on_delete=models.CASCADE, related_name='children')
 
     class Meta:
         verbose_name = "图书分类"
@@ -18,6 +18,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_children_categories(self):
+        return self.children.filter(root=False).all()
 
 
 class Books(models.Model):

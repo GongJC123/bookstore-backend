@@ -495,6 +495,7 @@ class CommAdminView(BaseAdminView):
     #
     #     return site_menu
 
+    # todo: 菜单栏按顺序显示
     @filter_hook
     def get_context(self):
         context = super(CommAdminView, self).get_context()

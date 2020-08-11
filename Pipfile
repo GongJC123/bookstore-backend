@@ -9,7 +9,7 @@ verify_ssl = true
 django = "==2.2.15"
 djangorestframework = "*"
 markdown = "*"
-django-filter = "*"
+django-filter = "==2.1.0"
 pillow = "*"
 pymysql = "*"
 future = "==0.17.1"
@@ -17,6 +17,8 @@ django-crispy-forms = "==1.8.1"
 django-formtools = "==2.2"
 httplib2 = "==0.13.0"
 django-import-export = "==2.0"
+coreapi = "==2.3.3"
+djangorestframework-recursive = "*"
 
 [requires]
 python_version = "3.7"

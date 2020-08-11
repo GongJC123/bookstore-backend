@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'crispy_forms',
     'xadmin',
     'books',
     'users',
@@ -136,4 +137,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# 前端访问文件时的根路径
+MEDIA_URL = "/media/"
+
+# 文件上传根路径
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# drf设置
+REST_FRAMEWORK = {
+    # 访问url：localhost：8000/docs/时报错，需要添加此条配置
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.AutoSchema',
+}

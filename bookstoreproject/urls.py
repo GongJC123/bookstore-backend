@@ -14,9 +14,34 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.views.static import serve
+from rest_framework.documentation import include_docs_urls
+from rest_framework.routers import DefaultRouter
+
+import xadmin
+from books.views import CategoryViewSet, NewBooksViewSet, HotBooksViewSet, BooksViewSet
+from bookstoreproject.settings import MEDIA_ROOT
+
+router = DefaultRouter()
+
+router.register('category', CategoryViewSet)
+router.register('book/new', NewBooksViewSet)
+router.register('book/hot', HotBooksViewSet)
+router.register('book', BooksViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api-auth', include('rest_framework.urls')),
+    # path('admin/', admin.site.urls),
+    path('xadmin/', xadmin.site.urls),
+
+    path('media/<path:path>', serve, {'document_root': MEDIA_ROOT}),
+    
+    path('api-auth/', include('rest_framework.urls')),
+
+    # drf文档
+    path('docs/', include_docs_urls(title='图书后台管理')),
+
+    # 增加公共前缀/api，后端api的入口
+    re_path(r'^api/', include(router.urls)),
+
 ]
