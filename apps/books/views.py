@@ -47,6 +47,18 @@ class BooksViewSet(viewsets.ModelViewSet):
     serializer_class = BooksSerializer
     pagination_class = BooksPagination
 
+    @action(methods=['get'], detail=False)
+    def new(self, request):
+        new_books = Books.objects.filter(newness=True).all()
+        ser = self.get_serializer(instance=new_books, many=True)
+        return Response(ser.data)
+
+    @action(methods=['get'], detail=False)
+    def hot(self, request):
+        hot_books = Books.objects.filter(hot=True).all()
+        ser = self.get_serializer(instance=hot_books, many=True)
+        return Response(ser.data)
+
     def category(self, request, pk):
         """查看分类图书列表"""
         books = Books.objects.filter(category=pk).all()
@@ -68,22 +80,6 @@ class BooksViewSet(viewsets.ModelViewSet):
         ser = self.get_serializer(instance=page_books, many=True)
 
         return self.get_paginated_response(ser.data)
-
-
-class NewBooksViewSet(viewsets.ModelViewSet):
-    """
-    新书列表
-    """
-    queryset = Books.objects.filter(newness=True).all()
-    serializer_class = BooksSerializer
-
-
-class HotBooksViewSet(viewsets.ModelViewSet):
-    """
-    热门书籍
-    """
-    queryset = Books.objects.filter(hot=True).all()
-    serializer_class = BooksSerializer
 
 
 class CommentViewSet(viewsets.ModelViewSet):

@@ -20,14 +20,12 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 
 import xadmin
-from books.views import CategoryViewSet, NewBooksViewSet, HotBooksViewSet, BooksViewSet, CommentViewSet
+from books.views import CategoryViewSet, BooksViewSet, CommentViewSet
 from bookstoreproject.settings import MEDIA_ROOT
 
 router = DefaultRouter()
 
 router.register('category', CategoryViewSet)
-router.register('book/new', NewBooksViewSet)
-router.register('book/hot', HotBooksViewSet)
 router.register('book', BooksViewSet)
 
 urlpatterns = [
