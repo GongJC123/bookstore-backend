@@ -22,11 +22,13 @@ from rest_framework.routers import DefaultRouter
 import xadmin
 from books.views import CategoryViewSet, BooksViewSet, CommentViewSet
 from bookstoreproject.settings import MEDIA_ROOT
+from users.views import UserViewSet
 
 router = DefaultRouter()
 
 router.register('category', CategoryViewSet)
 router.register('book', BooksViewSet)
+router.register('user', UserViewSet)
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -48,5 +50,7 @@ urlpatterns = [
     path('api/search', BooksViewSet.as_view({'get': 'search'})),
 
     path('api/book/<int:pk>/comment', CommentViewSet.as_view({'get': 'commentlist'})),
+
+    path('api/user/<str:username>', UserViewSet.as_view({'get': 'user_existed'})),
 
 ]

@@ -49,12 +49,14 @@ class BooksViewSet(viewsets.ModelViewSet):
 
     @action(methods=['get'], detail=False)
     def new(self, request):
+        """ 新品 """
         new_books = Books.objects.filter(newness=True).all()
         ser = self.get_serializer(instance=new_books, many=True)
         return Response(ser.data)
 
     @action(methods=['get'], detail=False)
     def hot(self, request):
+        """ 热销 """
         hot_books = Books.objects.filter(hot=True).all()
         ser = self.get_serializer(instance=hot_books, many=True)
         return Response(ser.data)
@@ -90,7 +92,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
 
     def commentlist(self, request, pk):
-        """ 按书名关键字 搜索 """
+        """ 获取当前书籍的评论列表 """
 
         comments = Comment.objects.filter(book=pk).all()
 
