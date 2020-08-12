@@ -20,7 +20,7 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 
 import xadmin
-from books.views import CategoryViewSet, NewBooksViewSet, HotBooksViewSet, BooksViewSet
+from books.views import CategoryViewSet, NewBooksViewSet, HotBooksViewSet, BooksViewSet, CommentViewSet
 from bookstoreproject.settings import MEDIA_ROOT
 
 router = DefaultRouter()
@@ -43,5 +43,12 @@ urlpatterns = [
 
     # 增加公共前缀/api，后端api的入口
     re_path(r'^api/', include(router.urls)),
+
+    # 复杂查询路由
+    path('api/book/category/<int:pk>/page', BooksViewSet.as_view({'get': 'category'})),
+
+    path('api/search', BooksViewSet.as_view({'get': 'search'})),
+
+    path('api/book/<int:pk>/comment', CommentViewSet.as_view({'get': 'commentlist'})),
 
 ]

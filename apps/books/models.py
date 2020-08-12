@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.db import models
+from django.utils import timezone
 
 from users.models import UserProfile
 
@@ -54,7 +55,7 @@ class Books(models.Model):
 class Comment(models.Model):
 
     content = models.TextField('评论内容', default='', help_text='评论内容')
-    commentDate = models.DateTimeField('评论时间', default=datetime.now)
+    commentDate = models.DateTimeField('评论时间', default=timezone.now)
     username = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name='用户外键')
     book = models.ForeignKey(Books, on_delete=models.CASCADE, verbose_name='图书外键')
 

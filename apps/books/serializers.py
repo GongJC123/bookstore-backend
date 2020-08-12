@@ -5,7 +5,7 @@ from abc import ABC
 from rest_framework import serializers
 from rest_framework_recursive.fields import RecursiveField
 
-from books.models import Category, Books
+from books.models import Category, Books, Comment
 
 
 class CategorySerializer(serializers.Serializer):
@@ -29,11 +29,12 @@ class BooksSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# class BookCategorySerializer(serializers.ModelSerializer):
-#
-#     Category = CategorySerializer()
-#
-#     class Meta:
-#         model = Books
+class CommentSerializer(serializers.ModelSerializer):
+
+    username = serializers.CharField(source='username.username', allow_null=True)
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
 
 

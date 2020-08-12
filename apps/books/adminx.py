@@ -1,7 +1,7 @@
 # Register your models here.
 
 import xadmin
-from .models import Books, Category
+from .models import Books, Category, Comment
 
 
 class BooksAdmin(object):
@@ -32,5 +32,13 @@ class CategoryAdmin(object):
     search_fields = ['name', ]
 
 
+class CommentAdmin(object):
+    list_display = ["username", "book", "content", 'commentDate']
+    list_filter = ["username", "book", "commentDate"]
+    search_fields = ['book', 'username']
+
+
 xadmin.site.register(Books, BooksAdmin)
 xadmin.site.register(Category, CategoryAdmin)
+xadmin.site.register(Comment, CommentAdmin)
+
