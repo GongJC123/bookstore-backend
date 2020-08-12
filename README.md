@@ -7,8 +7,9 @@ django版本
 drf相关依赖
 - djangorestframework = "*"
 - markdown = "*"
-- django-filter = "*"
 - pillow = "*"
+- drf过滤
+    - django-filter = "==2.1.0"
 
 mysql依赖
 - pymysql = "*"
@@ -28,9 +29,6 @@ drf对象级别的权限支持
 
 drf递归序列化
 - djangorestframework-recursive
-
-drf过滤
-- django-filter = "==2.1.0"
 
 ## todo（未完成）
 
