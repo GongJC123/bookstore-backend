@@ -22,13 +22,13 @@ from rest_framework.routers import DefaultRouter
 import xadmin
 from books.views import CategoryViewSet, BooksViewSet, CommentViewSet
 from bookstoreproject.settings import MEDIA_ROOT
-from users.views import UserViewSet
+from users.views import UserViewSet, LoginViewSet
 
 router = DefaultRouter()
 
 router.register('category', CategoryViewSet)
 router.register('book', BooksViewSet)
-router.register('user', UserViewSet)
+# router.register('user', UserViewSet)
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -41,16 +41,25 @@ urlpatterns = [
     # drf文档
     path('docs/', include_docs_urls(title='图书后台管理')),
 
-    # 增加公共前缀/api，后端api的入口
-    re_path(r'^api/', include(router.urls)),
-
     # 复杂查询路由
+    # 根据分类查询书籍列表
     path('api/book/category/<int:pk>/page', BooksViewSet.as_view({'get': 'category'})),
 
+    # 搜索（书名关键字）
     path('api/search', BooksViewSet.as_view({'get': 'search'})),
 
+    # 评论
     path('api/book/<int:pk>/comment', CommentViewSet.as_view({'get': 'commentlist'})),
 
-    path('api/user/<str:username>', UserViewSet.as_view({'get': 'user_existed'})),
+    # 注册
+    path('api/user/register', UserViewSet.as_view({'post': 'register'})),
 
+    # 登录
+    path('api/user/login', LoginViewSet.as_view({'post': 'login'})),
+
+    # 检查用户名是否已存在
+    path('api/user/<str:username>', UserViewSet.as_view({'get': 'existed'})),
+
+    # 增加公共前缀/api，后端api的入口
+    re_path(r'^api/', include(router.urls)),
 ]
